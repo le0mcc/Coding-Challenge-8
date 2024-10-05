@@ -26,14 +26,20 @@ class Department {
     const total = this.employees.reduce((sum, employee) => sum + employee.salary, 0);
     return total;
   };
+  calculateTotalSalaryWithBonus() {
+    const totalWithBonus = this.employees.reduce((sum, employee) => {
+        let total = 0;
+        if (employee instanceof Manager) {
+            total = sum + employee.salary + employee.bonus;
+        }
+        else {
+            total = sum + employee.salary;
+        };
+        return total;
+    }, 0);
+    return totalWithBonus;
+  };
 };
-
-const employee = new Employee("Ella", 60000, "Supervisor", "Sales");
-const department = new Department("Sales", [employee]);
-const employeeTwo = new Employee("Derek", 40000, "Employee", "Sales");
-department.addEmployee(employeeTwo);
-console.log(department);
-console.log(department.getDepartmentSalary());
 
 //Task 3: Create a manager class that inherits from employee
 class Manager extends Employee {
